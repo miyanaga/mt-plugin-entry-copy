@@ -3,6 +3,7 @@ package MT::EntryCopy::CMS;
 use strict;
 use warnings;
 
+use MT::Entry;
 use MT::EntryCopy::Util;
 
 sub template_param_edit_entry {
@@ -12,9 +13,16 @@ sub template_param_edit_entry {
     my $blog = $app->blog || return 1;
     my $config = plugin_config($blog->id);
 
+    # 新規の記事として振る舞う
     delete $param->{id};
     $param->{new_object} = 1;
     $param->{title} = '' if $config->{clear_title};
+    $param->{basename} = '';
+
+    # status_* は status_draft のみ1にする
+    foreach my $key ( keys %$param ) {
+        $param->{$key} = $key eq 'status_draft' if $key =~ /^status_/;
+    }
 
     1;
 }
@@ -29,7 +37,6 @@ sub init_request {
     return 1 if $app->param('id');
 
     my $config = plugin_config($blog->id);
-    pp($config);
     my $new_entry_id = $config->{new_entry_id} || return 1;
 
     my $new_entry = MT->model('entry')->load({ blog_id => $blog->id, id => $new_entry_id }) || return 1;
@@ -39,7 +46,6 @@ sub init_request {
         %hash, id => $new_entry_id, copy => 1,
     });
 
-    print STDERR $copy_uri, "\n";
     $app->redirect($copy_uri);
 }
 

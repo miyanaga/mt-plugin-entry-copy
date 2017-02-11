@@ -16,5 +16,9 @@ blog_config_template: tmpl/blog_config_template.tmpl
 applications:
     cms:
         callbacks:
-            init_request: $EntryCopy::MT::EntryCopy::CMS::init_request
-            template_param.edit_entry: $EntryCopy::MT::EntryCopy::CMS::template_param_edit_entry
+            init_request:
+                priority: 2
+                code: $EntryCopy::MT::EntryCopy::CMS::init_request
+            template_param.edit_entry:
+                priority: 2
+                code: $EntryCopy::MT::EntryCopy::CMS::template_param_edit_entry

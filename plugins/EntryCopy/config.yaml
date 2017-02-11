@@ -1,0 +1,20 @@
+id: EntryCopy
+version: 0.1.0
+description: <__trans phrase="Utilities for entry copy.">
+l10n_class: MT::EntryCopy::L10N
+
+settings:
+    new_entry_id:
+        Scope: blog
+        Default:
+    clear_title:
+        Scope: blog
+        Default: 0
+
+blog_config_template: tmpl/blog_config_template.tmpl
+
+applications:
+    cms:
+        callbacks:
+            init_request: $EntryCopy::MT::EntryCopy::CMS::init_request
+            template_param.edit_entry: $EntryCopy::MT::EntryCopy::CMS::template_param_edit_entry

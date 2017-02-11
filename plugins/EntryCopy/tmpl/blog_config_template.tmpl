@@ -1,0 +1,18 @@
+<mtapp:setting
+    id="entry_copy_new_entry_id"
+    label="<__trans phrase="New Entry From Copy">"
+    hint="<__trans phrase="If you want to start an new entry as copy of the another entry, entry the original entry id.">"
+    show_hint="1">
+    <input type="text short" name="new_entry_id" id="entry_copy_new_entry_id_value" value="<mt:var name="new_entry_id" escape="html">" size="12" />
+</mtapp:setting>
+
+<mtapp:setting
+    id="entry_copy_clear_title"
+    label="<__trans phrase="Clear Title">"
+>
+    <label>
+        <input type="checkbox" name="clear_title" id="entry_copy_clear_title_value_1" value="1"<mt:if name="clear_title"> checked="checked"</mt:if> />
+        <__trans phrase="Clear title of an new entry">
+    </label>
+    <input type="hidden" name="clear_title" id="entry_copy_clear_title_value_0" value="0" />
+</mtapp:setting>

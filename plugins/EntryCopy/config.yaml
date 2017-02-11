@@ -1,5 +1,5 @@
-id: EntryCopy
-version: 0.1.1
+id: Entry Copy
+version: 0.1.2
 description: <__trans phrase="Utilities for entry copy.">
 l10n_class: MT::EntryCopy::L10N
 
@@ -20,7 +20,7 @@ applications:
                 priority: 2
                 code: $EntryCopy::MT::EntryCopy::CMS::init_request
             template_param.edit_entry:
-                priority: 2
+                priority: 7
                 code: $EntryCopy::MT::EntryCopy::CMS::template_param_edit_entry
             cms_view_permission_filter.entry:
                 priority: 2

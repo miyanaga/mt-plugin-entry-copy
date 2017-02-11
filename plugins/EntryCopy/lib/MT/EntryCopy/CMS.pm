@@ -40,13 +40,25 @@ sub init_request {
     my $new_entry_id = $config->{new_entry_id} || return 1;
 
     my $new_entry = MT->model('entry')->load({ blog_id => $blog->id, id => $new_entry_id }) || return 1;
-    my %hash = $app->param_hash;
 
-    my $copy_uri = $app->uri( mode => delete $hash{__mode}, args => {
-        %hash, id => $new_entry_id, copy => 1,
-    });
+    # 内部的にidを書き換える
+    $app->param('id', $new_entry_id);
+    $app->param('copy', 1);
+    $app->param('_entry_copy', 1);
 
-    $app->redirect($copy_uri);
+    1;
+}
+
+sub cms_view_permission_filter_entry {
+    my ( $cb, $app, $id, $objp ) = @_;
+
+    # フィルタの序盤で記事のユーザーを自分に差し替える
+    if ( $app->param('_entry_copy') ) {
+        my $obj = $objp->force();
+        $obj->author_id($app->user->id);
+    }
+
+    1;
 }
 
 1;

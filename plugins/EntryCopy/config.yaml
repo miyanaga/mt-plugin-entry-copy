@@ -22,3 +22,6 @@ applications:
             template_param.edit_entry:
                 priority: 2
                 code: $EntryCopy::MT::EntryCopy::CMS::template_param_edit_entry
+            cms_view_permission_filter.entry:
+                priority: 2
+                code: $EntryCopy::MT::EntryCopy::CMS::cms_view_permission_filter_entry
